@@ -87,7 +87,20 @@ Copy `example-halstead/` as the structural reference. Each client folder is **se
 <slug>/success/index.html  <- Client Success
 ```
 
-Relative paths matter: root pages use `styles.css`, sub-pages use `../styles.css` and `../index.html`.
+**Use ROOT-ABSOLUTE paths for every internal link and the stylesheet. Never relative ones.**
+
+```html
+<link rel="stylesheet" href="/<slug>/styles.css">
+<a href="/<slug>/">Home</a>
+<a href="/<slug>/about/">About</a>
+<a href="/<slug>/success/">Client Success</a>
+```
+
+This is not a style preference, it is a bug fix. Vercel strips trailing slashes, so a visitor lands on
+`/<slug>/about` and the browser resolves `../styles.css` against `/<slug>/`, giving `/styles.css` at the
+domain root, which does not exist. The result is a completely unstyled white page and dead navigation
+on every sub-page. `vercel.json` sets `trailingSlash: true` as a safety net, but absolute paths mean the
+site cannot break even if that config changes. Always spell out the slug.
 
 **Re-skin by editing the three tokens at the top of `styles.css`** (`--brand`, `--accent`,
 `--accent-ink`). `--accent-ink` must be legible ON the accent - dark ink on a light/warm accent, white
