@@ -142,8 +142,20 @@ Funnel-triggered runs always supply one, and this write is **mandatory** - the l
 - If either write fails, say so loudly in the Slack post with the lead email and the live URL so it can
   be attached by hand. Never fail silently.
 
-Do **not** write to ManyChat from this skill. The n8n workflow owns that, so the send and the tag stay
-in one place.
+Do **not** call the ManyChat API directly from this skill. Instead, **once the three pages are live and
+returning 200, call the build-complete webhook** - this is what actually gets the site sent to them:
+
+```bash
+curl -sS -G "https://optimally.app.n8n.cloud/webhook/build-complete" \
+  --data-urlencode "lead_email=<the lead email you were given>" \
+  --data-urlencode "url=https://launchpad-sites-one.vercel.app/<slug>" \
+  --data-urlencode "kind=launchpad"
+```
+
+n8n then saves the URL to the lead row, writes it into the ManyChat **Demo Website URL** field and
+applies the **Landing Page Ready** tag, which is what triggers the DM. Skipping this call means the
+site is built but nobody ever receives it. Only skip it when no lead email was supplied (a manual
+one-off build). If it returns anything other than 200, say so in the Slack post.
 
 ### 6. Post to Slack
 Channel `C08UWMXTNGH`, Optimally OS bot, mrkdwn (`*bold*`, `<url|label>`, `>` quote groups, no em dashes):
