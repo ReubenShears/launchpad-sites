@@ -143,7 +143,7 @@ curl -sS -o /dev/null -w "%{http_code}" https://sites.optimally.ltd/<slug>
 curl -sS -o /dev/null -w "%{http_code}" https://sites.optimally.ltd/<slug>/about
 curl -sS -o /dev/null -w "%{http_code}" https://sites.optimally.ltd/<slug>/success
 ```
-The old  URL still serves as a fallback alias, but never hand it out: Slack, Baserow, GHL and build-complete all get the sites.optimally.ltd form.
+The old `launchpad-sites-one.vercel.app` URL still serves as a fallback alias, but never hand it out: Slack, Baserow, GHL and build-complete all get the `sites.optimally.ltd` form.
 If a push lands but the alias still 404s after ~3 minutes, the production alias has not rolled over.
 Do not rebuild: report it in Slack and stop.
 
