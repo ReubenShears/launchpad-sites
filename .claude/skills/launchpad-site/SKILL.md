@@ -123,7 +123,7 @@ link unfurl properly when forwarded (WhatsApp, iMessage, Facebook). The image is
 card at the repo root; it is the ONE permitted absolute URL because OG images must be absolute:
 
 ```html
-<meta property="og:title" content="{Business Name} | Your new website is ready">
+<meta property="og:title" content="{Business Name} | Website Built For {Lead First Name}">
 <meta property="og:description" content="Your new website is ready to view. Take a look.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://sites.optimally.ltd/og.jpg">
@@ -131,6 +131,10 @@ card at the repo root; it is the ONE permitted absolute URL because OG images mu
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 ```
+
+`{Lead First Name}` is the first word of the lead name you were given, tidied to Title Case (e.g. lead
+name "jay smith" gives `Unorthodox Digital | Website Built For Jay`). If no lead name was supplied (a
+manual one-off build), use `{Business Name} | Website Built For You`.
 
 **Hard rules for every page:**
 - **No video, no VSL, no play button, anywhere.** Especially not in the hero.
