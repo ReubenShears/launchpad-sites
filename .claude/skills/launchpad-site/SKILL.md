@@ -87,20 +87,21 @@ Copy `example-halstead/` as the structural reference. Each client folder is **se
 <slug>/success/index.html  <- Client Success
 ```
 
-**Use ROOT-ABSOLUTE paths for every internal link and the stylesheet. Never relative ones.**
+**Use RELATIVE paths for every internal link and the stylesheet. Never absolute ones, never the slug.**
 
 ```html
-<link rel="stylesheet" href="/<slug>/styles.css">
-<a href="/<slug>/">Home</a>
-<a href="/<slug>/about/">About</a>
-<a href="/<slug>/success/">Client Success</a>
+Root page:      <link rel="stylesheet" href="styles.css">   <a href="about/">About</a>
+Sub-pages:      <link rel="stylesheet" href="../styles.css"> <a href="../">Home</a> <a href="../success/">Client Success</a>
 ```
 
-This is not a style preference, it is a bug fix. Vercel strips trailing slashes, so a visitor lands on
-`/<slug>/about` and the browser resolves `../styles.css` against `/<slug>/`, giving `/styles.css` at the
-domain root, which does not exist. The result is a completely unstyled white page and dead navigation
-on every sub-page. `vercel.json` sets `trailingSlash: true` as a safety net, but absolute paths mean the
-site cannot break even if that config changes. Always spell out the slug.
+Two rules make this safe and portable:
+1. **Always write internal links WITH a trailing slash** (`about/`, `../success/`), matching the repo's
+   `vercel.json` `trailingSlash: true`. Without that config, slashless URLs make browsers resolve
+   `../styles.css` to the domain root and every sub-page renders as an unstyled white page - never
+   remove that vercel.json.
+2. **Never hardcode the slug or the domain in a path.** The folder must be fully portable: when a
+   client BUYS, their folder is lifted unchanged into its own Vercel project (so their custom domain
+   can be attached), and any `/<slug>/...` path would break at that moment.
 
 **Re-skin by editing the three tokens at the top of `styles.css`** (`--brand`, `--accent`,
 `--accent-ink`). `--accent-ink` must be legible ON the accent - dark ink on a light/warm accent, white
