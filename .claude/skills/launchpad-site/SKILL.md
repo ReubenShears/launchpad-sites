@@ -118,6 +118,20 @@ work" principles, stat band, coverage area, CTA band, footer.
 **Client Success** - hero, stat band, three case studies (situation → what was done → three outcome
 bullets), four-quote testimonial wall, CTA band, footer.
 
+**Social share (OG) tags - every page's `<head>`, right after the description meta.** These make the
+link unfurl properly when forwarded (WhatsApp, iMessage, Facebook). The image is the shared branded
+card at the repo root; it is the ONE permitted absolute URL because OG images must be absolute:
+
+```html
+<meta property="og:title" content="{Business Name} | Your new website is ready">
+<meta property="og:description" content="Your new website is ready to view. Take a look.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://sites.optimally.ltd/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+```
+
 **Hard rules for every page:**
 - **No video, no VSL, no play button, anywhere.** Especially not in the hero.
 - **All CTAs inert.** Buttons stay `<a href="#contact">` or in-site links; the form is
