@@ -2,7 +2,7 @@
 name: launchpad-site
 description: >
   Build a 3-page Conversion Launchpad preview site (Landing, About, Client Success) for a prospect and
-  deploy it to launchpad-sites-one.vercel.app/<slug>. Use when the user wants a Launchpad site, a
+  deploy it to sites.optimally.ltd/<slug>. Use when the user wants a Launchpad site, a
   3-page site, a "real website" preview, or "build the launchpad for <company>". Takes EITHER a company
   website URL (scraped for brand and content) OR a written business-context block (prospects with no
   website). This is the LOW-TICKET product preview: everything is visually finished but nothing is
@@ -47,7 +47,7 @@ Never abort because there is no URL. A context block is a complete, valid brief.
 | Thing | Value |
 |---|---|
 | Repo | `ReubenShears/launchpad-sites` (local checkout `D:/Claude Cowork/launchpad-sites`) |
-| Live root | `https://launchpad-sites-one.vercel.app` |
+| Live root | `https://sites.optimally.ltd` |
 | Client site | `<repo>/<slug>/` → `/<slug>`, `/<slug>/about`, `/<slug>/success` |
 | Reference build | `example-halstead/` - copy its structure and CSS system |
 | Baserow lead row | `Lead Data` (1000548), field **`Launchpad URL`** |
@@ -139,10 +139,11 @@ Remote/headless: if already in the checkout, just add/commit/push. Prefer `GITHU
 Commit author email MUST be `132842611+ReubenShears@users.noreply.github.com` or the build is blocked.
 Push straight to `main`. Then poll all three pages until each returns 200 (allow a couple of minutes):
 ```bash
-curl -sS -o /dev/null -w "%{http_code}" https://launchpad-sites-one.vercel.app/<slug>
-curl -sS -o /dev/null -w "%{http_code}" https://launchpad-sites-one.vercel.app/<slug>/about
-curl -sS -o /dev/null -w "%{http_code}" https://launchpad-sites-one.vercel.app/<slug>/success
+curl -sS -o /dev/null -w "%{http_code}" https://sites.optimally.ltd/<slug>
+curl -sS -o /dev/null -w "%{http_code}" https://sites.optimally.ltd/<slug>/about
+curl -sS -o /dev/null -w "%{http_code}" https://sites.optimally.ltd/<slug>/success
 ```
+The old  URL still serves as a fallback alias, but never hand it out: Slack, Baserow, GHL and build-complete all get the sites.optimally.ltd form.
 If a push lands but the alias still 404s after ~3 minutes, the production alias has not rolled over.
 Do not rebuild: report it in Slack and stop.
 
@@ -162,7 +163,7 @@ returning 200, call the build-complete webhook** - this is what actually gets th
 ```bash
 curl -sS -G "https://optimally.app.n8n.cloud/webhook/build-complete" \
   --data-urlencode "lead_email=<the lead email you were given>" \
-  --data-urlencode "url=https://launchpad-sites-one.vercel.app/<slug>" \
+  --data-urlencode "url=https://sites.optimally.ltd/<slug>" \
   --data-urlencode "kind=launchpad"
 ```
 
@@ -176,7 +177,7 @@ Channel `C08UWMXTNGH`, Optimally OS bot, mrkdwn (`*bold*`, `<url|label>`, `>` qu
 ```
 :rocket:  *Launchpad site ready:  {{Company}}*
 
->  :globe_with_meridians:  <https://launchpad-sites-one.vercel.app/{{slug}}|View the site>
+>  :globe_with_meridians:  <https://sites.optimally.ltd/{{slug}}|View the site>
 >  :page_facing_up:  Landing  ·  About  ·  Client Success
 >  :art:  Brand: {{brandHex}} / {{accentHex}}
 >  :bust_in_silhouette:  Lead: {{leadName}} ({{leadEmail}})
