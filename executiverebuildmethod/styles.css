@@ -32,6 +32,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html, body { overflow-x: clip; }
 body {
   font-family: var(--serif);
   color: var(--body);
@@ -339,6 +340,9 @@ p { text-wrap: pretty; }
   body { font-size: 16.5px; }
   .nav-links { display: none; }
   .nav-phone { display: none; }
+  .eyebrow { letter-spacing: .16em; white-space: normal; line-height: 2; padding: 8px 14px 7px 16px; }
+  .case-tag { letter-spacing: .14em; white-space: normal; line-height: 2; }
+  .hero-assure { font-size: 13px; }
   .grid-3, .pain, .steps, .quote-grid { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; gap: 30px; }
   .hero-actions .btn { width: 100%; }
